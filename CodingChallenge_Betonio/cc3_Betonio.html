@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coding Challenge 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        background-color: rgb(217, 255, 253);
+      }
+
+      div {
+        background-color: white;
+        width: 300px;
+        height: 30px;
+        text-align: center;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 10px;
+        width: 100px; /* Adjust width for each column if needed */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Name List</h1>
+
+    <table id="table">
+      <tr>
+        <th>First Name</th>
+        <th>Middle Name</th>
+        <th>Last Name</th>
+      </tr>
+    </table>
+    <button onclick="addName()">Add Name</button>
+    <script>
+      function addName() {
+        let userInfo = prompt(
+          "Enter First name, Middle name, and Last name - each separated by a comma. (ex. Wyz, Valois, Betonio)"
+        );
+
+        const items = userInfo.trim().split(",");
+
+        if (items.includes("")) {
+          return "Invalid input! Commas cannot be used consecutively.";
+        }
+
+        if (items.length < 3) {
+          alert("Please enter all three name parts.");
+          return; 
+        }
+
+        const newRow = document.createElement("tr");
+
+        const firstNameCell = document.createElement("td");
+        firstNameCell.textContent = items[0];
+        const middleNameCell = document.createElement("td");
+        middleNameCell.textContent = items[1];
+        const lastNameCell = document.createElement("td");
+        lastNameCell.textContent = items[2];
+
+        newRow.appendChild(firstNameCell);
+        newRow.appendChild(middleNameCell);
+        newRow.appendChild(lastNameCell);
+
+        const table = document.getElementById("table");
+        table.appendChild(newRow);
+        
+        return; 
+      }
+    </script>
+  </body>
+</html>

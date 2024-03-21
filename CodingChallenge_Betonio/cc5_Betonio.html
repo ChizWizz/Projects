@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Coding Challenge 5
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color: rgb(255, 169, 208);
+            }
+            #name {
+              color: rgb(255, 77, 113);
+            }
+            #result {
+              color: rgb(255, 0, 85);
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Modified FLAMES </h1>
+
+        <button onclick="flames()">Match Names</button>
+        <h3 id="name"></h3>
+
+        <h4>FLAMES Result:</h4>
+        <h3 id="result"></h3>
+
+        <script>
+
+            function flames(){
+
+              const name1 = prompt("Enter name 1: ", "");
+              const name2 = prompt("Enter name 2: ", "");
+              
+              function removeSpacesAndSpecialChars(input) {
+                return input.replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, '');
+              }
+
+              let cleanedNameA = removeSpacesAndSpecialChars(name1);
+              let cleanedNameB = removeSpacesAndSpecialChars(name2);
+
+              if (cleanedNameA === '' || cleanedNameB === '') {
+                alert("Please enter at least one valid alphabet character for each name.");
+                return;
+              }
+
+              document.getElementById("name").textContent = cleanedNameA + " & " + cleanedNameB;
+
+              const totalNames = (cleanedNameA + cleanedNameB).length;
+             
+              let totalResult;
+                if (totalNames % 6 === 0) totalResult = "Sweethearts";
+                else if (totalNames % 6 === 1) totalResult = "Friends";
+                else if (totalNames % 6 === 2) totalResult = "Lovers";
+                else if (totalNames % 6 === 3) totalResult = "Acquaintances";
+                else if (totalNames % 6 === 4) totalResult = "Marriage";
+                else if (totalNames % 6 === 5) totalResult = "Enemies";
+
+              document.getElementById("result").textContent = totalResult;
+
+            }
+        </script>
+    </body>
+</html>

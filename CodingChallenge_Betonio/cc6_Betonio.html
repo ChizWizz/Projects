@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Coding Challenge 6
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background-color: lightseagreen;
+            }
+           
+        </style>
+    </head>
+    <body>
+        <h1> Quadratic Formula </h1>
+
+        <button onclick="solve()">Find the root</button>
+
+        <h4 id="result"></h4>
+
+        <script>
+            function solve(){
+                const a = parseFloat(prompt("Enter a: "));
+                const b = parseFloat(prompt("Enter b: "));
+                const c = parseFloat(prompt("Enter c: "));
+
+                if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                    alert("Please enter valid numbers.");
+                    return;
+                }
+
+                const discriminant = b * b - 4 * a * c;
+
+                let x1, x2;
+                let result;
+                if (discriminant === 0) {
+                    x1 = x2 = -b / (2 * a);
+                    result = `The roots are equal: x1 = x2 = ${x1}`;
+                } 
+                else if (discriminant > 0) {
+                    const sqrtD = Math.sqrt(discriminant);
+                    x1 = (-b + sqrtD) / (2 * a);
+                    x2 = (-b - sqrtD) / (2 * a);
+                    result = `The roots are real and distinct: x1 = ${x1}, x2 = ${x2}`;
+                } 
+                else {
+                    result = "The roots are imaginary or not real numbers.";
+                }
+
+                const resultElement = document.getElementById("result");
+                resultElement.textContent = result;
+      }
+        </script>
+    </body>
+</html>
