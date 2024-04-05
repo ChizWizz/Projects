@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiplication Table</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                text-align: center;
+                text-align: center;
+                width: 20%;
+                margin: auto; 
+            }
+            td {
+                border: 1px solid black;
+                padding: 10px;
+                background-color: rgb(132, 145, 210);
+            }
+            tr:first-child td {
+            background-color: rgb(148, 66, 255);
+            }
+            td:first-child {
+                background-color: rgb(148, 66, 255);
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            var n, m;
+            let i = 1;
+
+            do {
+                n = parseInt(prompt("Enter number for the column range (2 to 10 only):"));
+                m = parseInt(prompt("Enter number for the row range (2 to 10 only):"));
+            } while (isNaN(n) || isNaN(m) || n < 2 || m < 2 || n > 10 || m > 10);
+
+            var table = "<table>";
+            for (let i = 1; i <= m; i++) {
+                table += "<tr>";
+                for (let x = 1; x <= n; x++) {
+                    const result = i * x;
+                    table += "<td>" + result + "</td>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+
+            document.body.innerHTML = table;
+        </script>
+    </body>
+</html>
