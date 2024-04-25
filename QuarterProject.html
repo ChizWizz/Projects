@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inventory Management Quarter Project</title>
+<style>
+    body {
+        background-color: #e89ad2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        font-family: Lucida Sans;
+    }
+  
+    h1 {
+        color: transparent;
+        -webkit-text-stroke: 3px #ffffff;
+        font-size: 50px;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    h4 {
+        text-align: center;
+        color: #ffffff;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+  
+    div {
+        margin-bottom: 10px;
+    }
+
+    #margin{
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+  
+    label {
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+    }
+  
+    input[type="text"], input[type="number"] {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 200px;
+        text-align: justify;
+    }
+  
+    button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #d06bdd;
+        color: white;
+        cursor: pointer;
+    }
+  
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    #oh{
+        color: rgb(100, 66, 60);
+        padding: 10px;
+    }
+
+    #dbutton{
+        border: none;
+        border-radius: 4px;
+        background-color: #d06bdd;
+        color: white;
+        cursor: pointer;
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    th{
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+        background-color: #6f255a;
+        color: #f8bce2;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+    <h1>Inventory Management</h1>
+    <h4>by: Bermudo, Betonio, Bibanco</h4>
+    <div id = "margin">
+        <label for="itemName" id = "oh">Product Name:</label>
+        <input type="text" id="itemNameInput">
+    </div>
+    <div id = "margin">
+        <label for="itemQty" id = "oh">Quantity:</label>
+        <input type="number" id="itemQtyInput">
+        <button onclick="addItem()">Add Quantity</button>
+    </div>
+    <div id = "margin">
+        <label for="addQty" id = "oh">Add Additional Quantity:</label>
+        <input type="number" id="addQtyInput">
+        <button onclick="addNoOfItem()">Add Quantity</button>
+    </div>
+    <div id = "margin">
+        <label for="subQty" id = "oh">Deduct Quantity:</label>
+        <input type="number" id="subQtyInput">
+        <button onclick="subNoOfItem()">Deduct Quantity</button>
+    </div>
+    <div id = "margin">
+        <label for="removeItemName" id = "oh">Product Name to Remove:</label>
+        <input type="text" id="removeItemNameInput">
+        <button onclick="removeItem()">Remove Product</button>
+    </div>
+    <div id = "dbutton">
+        <button onclick="displayItems()">Display Inventory</button>
+    </div>
+    <div id="inventoryTable"></div>
+
+    <script>
+        class Inventory {
+            constructor() {}
+
+            addItem(supply, name, num) {
+                for (let item of supply) {
+                    if (item.itemName === name) {
+                        alert("Item already exists in inventory.");
+                        return;
+                    }
+                }
+                supply.push({ itemName: name, noOfItem: num });
+            }
+
+            addNoOfItem(supply, name, num) {
+                for (let item of supply) {
+                    if (item.itemName === name) {
+                        item.noOfItem += num;
+                        alert("Added " + num + " " + name + "(s) to inventory.");
+                        return;
+                    }
+                }
+                alert("Item not found in inventory.");
+            }
+
+            subNoOfItem(supply, name, num) {
+                for (let item of supply) {
+                    if (item.itemName === name) {
+                        if (item.noOfItem >= num) {
+                            item.noOfItem -= num;
+                            alert("Subtracted " + num + " " + name + "(s) from inventory.");
+                        } else {
+                            alert("Insufficient quantity of " + name + " in inventory.");
+                        }
+                        return;
+                    }
+                }
+                alert("Item not found in inventory.");
+            }
+
+            removeItem(supply, name) {
+                for (let i = 0; i < supply.length; i++) {
+                    if (supply[i].itemName === name) {
+                        supply.splice(i, 1);
+                        alert("Removed " + name + " from inventory.");
+                        return;
+                    }
+                }
+                alert("Item not found in inventory.");
+            }
+
+            displayItems(supply) {
+                let table = "<h2>INVENTORY:</h2><table>";
+                table += "<tr><th>Item Name</th><th>No. of Items</th></tr>";
+                for (let item of supply) {
+                    table += "<tr><td>" + item.itemName + "</td><td>" + item.noOfItem + "</td></tr>";
+                }
+                table += "</table>";
+                document.getElementById("inventoryTable").innerHTML = table;
+            }
+        }
+
+        let supply = [];
+        let inventory = new Inventory();
+
+        function addItem() {
+            let name = document.getElementById("itemNameInput").value;
+            let qty = parseInt(document.getElementById("itemQtyInput").value);
+            inventory.addItem(supply, name, qty);
+        }
+
+        function addNoOfItem() {
+            let name = document.getElementById("itemNameInput").value;
+            let qty = parseInt(document.getElementById("addQtyInput").value);
+            inventory.addNoOfItem(supply, name, qty);
+        }
+
+        function subNoOfItem() {
+            let name = document.getElementById("itemNameInput").value;
+            let qty = parseInt(document.getElementById("subQtyInput").value);
+            inventory.subNoOfItem(supply, name, qty);
+        }
+
+        function removeItem() {
+            let name = document.getElementById("removeItemNameInput").value;
+            inventory.removeItem(supply, name);
+        }
+
+        function displayItems() {
+            inventory.displayItems(supply);
+        }
+    </script>
+</body>
+</html>
